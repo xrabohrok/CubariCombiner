@@ -1,9 +1,9 @@
 <script setup>
-import HelloWorld from '../components/HelloWorld.vue';
+import FormMain from '../components/FormMain.vue';
 </script>
 
 <template>
   <main>
-    <HelloWorld />
+    <FormMain />
   </main>
 </template>
