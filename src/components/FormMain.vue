@@ -1,10 +1,17 @@
 <script setup>
+import FormChapter from "../components/FormChapter.vue"
+
 import {useFormStore} from '../stores/form'
 
 const store = useFormStore()
 
 function addChapter(){
   store.chapterCount++
+}
+
+function catchChapterChange(thing){
+  console.log("parent catch:")
+  console.log(thing)
 }
 
 
@@ -24,13 +31,15 @@ function addChapter(){
     <label>Description
       <input type="text" name="description" />
     </label>
-    <lablel>Use Current Time For all Chapters
+    <label>Use Current Time For all Chapters
       <input type="checkbox" name="cur-time-all" />
-    </lablel>
+    </label>
   </form>
   
   <div>{{ store.chapterCount }}</div>
   <button @click="addChapter">Add Chapter</button>
+
+  <FormChapter :chapter-num="i" @form-changed="(thing)=>catchChapterChange(thing)" v-for="i in store.chapterCount" :key="i"></FormChapter>
 
 </template>
 
