@@ -1,13 +1,13 @@
 <script setup>
 import { ref } from 'vue';
 
-const props = defineProps(['chapterNum', 'lockedTime'])
+const props = defineProps(['chapterNum', 'lockedTime', 'refId'])
 
 const model = ref({
     chapterTitle: "",
     groupName: "",
     imgurLink: "",
-    timestamp: ""
+    timestamp: "",
 })
 
 function simplifyModel(model){
@@ -16,7 +16,8 @@ function simplifyModel(model){
         groupName: model.groupName,
         imgurLink: model.imgurLink,
         timestamp: model.timestamp,
-        chapterNum: props.chapterNum
+        chapterNum: props.chapterNum,
+        refId: props.refId
     }
 }
 

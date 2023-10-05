@@ -8,11 +8,10 @@ export const useFormStore = defineStore('form-meta', {
     description: "",
     cover: "",
     useCurTime: false,
-    chapterCount: 1,
     chapters: []
   }),
   getters: {
-    
+    chapterCount: (store) => store.chapters.length
   },
   actions: {}
 })
