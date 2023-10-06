@@ -16,9 +16,19 @@ function addChapter(){
         groupName: "",
         imgurLink: "",
         timestamp: "",
-        chapterNum: store.chapterCount + 1,
         refId: uuidv4()
       })
+  })
+}
+
+function removeChapter(id){
+  console.log(`removing ${id}`)
+  store.$patch(()=>{
+    var targetIndex = store.chapters.findIndex(chapter => {
+      return chapter.refId === id
+    })
+    if (targetIndex < 0) return
+    store.chapters.splice(targetIndex,1)
   })
 }
 
@@ -46,7 +56,7 @@ addChapter()
       <input type="text" name="artist" v-model="artist"/>
     </label>
     <label>Description
-      <input type="text" name="description" v-model="description"/>
+      <textarea name="description" v-model="description"></textarea>
     </label>
     <label>Cover
       <input type="text" name="cover" v-model="cover"/>
@@ -55,11 +65,20 @@ addChapter()
       <input type="checkbox" name="cur-time-all" v-model="useCurTime" />
     </label>
   </form>
-  
-  <div>{{ store.chapterCount }}</div>
   <button @click="addChapter">Add Chapter</button>
 
-  <FormChapter :chapter-num="i.chapterNum" @form-changed="(thing)=>catchChapterChange(thing)" v-for="i in store.chapters" :key="i.refId"></FormChapter>
+  <FormChapter 
+    :chapter-num="index+1" 
+    @form-changed="(thing)=>catchChapterChange(thing)" 
+    @chapter-remove="(id) => removeChapter(id)"
+    v-for="(i, index) in store.chapters" 
+    :key="i.refId"
+    :total="store.chapters.length"
+    :refId="i.refId"
+    :locked-time="store.useCurTime">
+  </FormChapter>
+
+  <button>GO!</button>
 
 </template>
 
