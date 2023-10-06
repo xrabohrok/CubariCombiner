@@ -32,9 +32,21 @@ function removeChapter(id){
   })
 }
 
+function updateChapter(insertModel){
+  store.$patch(() => {
+    var targetIndex = store.chapters.findIndex(chapter => {
+      return chapter.refId === insertModel.refId
+    })
+    if (targetIndex < 0) return
+    const finalInsert = {...insertModel}
+    store.chapters[targetIndex] = finalInsert
+  })
+}
+
 function catchChapterChange(thing){
   console.log("parent catch:")
   console.log(thing)
+  updateChapter(thing)
 }
 
 const {title, author, artist, description, cover, useCurTime} = storeToRefs(store)

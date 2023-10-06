@@ -16,7 +16,6 @@ function simplifyModel(model){
         groupName: model.groupName,
         imgurLink: model.imgurLink,
         timestamp: model.timestamp,
-        chapterNum: props.chapterNum,
         refId: props.refId
     }
 }
