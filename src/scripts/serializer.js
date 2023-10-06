@@ -2,6 +2,10 @@ function doSerialization(obj){
     return JSON.stringify(obj, null, 2)
 }
 
+function cubariTicks(indate){
+    return Math.floor(indate.getTime()/100)
+}
+
 function serializeFormChapters(store){
     const chapterObj = {}
     store.chapters.forEach((c,i) =>{
@@ -14,8 +18,8 @@ function serializeFormChapters(store){
             volume: "1",
             groups: groups,
             last_updated: store.useGlobalTime ? 
-                store.globalTimestamp :
-                c.timestamp
+                cubariTicks(store.globalTimestamp) :
+                cubariTicks(c.timestamp)
         }
     })
     const rawObj = {
@@ -30,4 +34,3 @@ function serializeFormChapters(store){
 }
 
 export {serializeFormChapters}
-

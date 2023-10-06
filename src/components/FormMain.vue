@@ -105,7 +105,7 @@ addChapter()
   </FormChapter>
 
   <button @click="serialize">GO!</button>
-  <textarea readonly v-model="jsonOutput" cols="30" rows="50"></textarea>
+  <textarea readonly v-model="jsonOutput" cols="30" rows="30" placeholder="output appears here"></textarea>
 
 </template>
 
