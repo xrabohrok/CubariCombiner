@@ -13,8 +13,7 @@ function addChapter(){
     store.chapters.push(
       {
         chapterTitle: "",
-        groupName: "",
-        imgurLink: "",
+        chapterGroups: [],
         timestamp: "",
         refId: uuidv4()
       })

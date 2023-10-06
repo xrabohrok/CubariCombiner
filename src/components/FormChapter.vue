@@ -1,32 +1,39 @@
 <script setup>
 import { ref } from 'vue';
+import { v4 as uuidv4 } from 'uuid'
+
 
 const props = defineProps(['chapterNum', 'lockedTime', 'refId', 'total'])
 
 const model = ref({
     chapterTitle: "",
-    groupName: "",
-    imgurLink: "",
-    timestamp: "",
+    timestamp: new Date(),
 })
 
-function simplifyModel(model){
+const groupSets = ref([
+    {
+        id: uuidv4(),
+        groupName: "",
+        imgur: "",
+    }
+])
+
+function simplifyModel(model, groups) {
     return {
         chapterTitle: model.chapterTitle,
-        groupName: model.groupName,
-        imgurLink: model.imgurLink,
+        chapterGroups: groups.map(g => ({ groupName: g.groupName, imgurLink: g.imgur })),
         timestamp: model.timestamp,
         refId: props.refId
     }
 }
 
 defineEmits({
-    formChanged(payload){
+    formChanged(payload) {
         return payload.chapterTitle != "" &&
             payload.groupName != "" &&
-            payload.imgurLink != "" 
+            payload.imgurLink != ""
     },
-    chapterRemove(){return true}
+    chapterRemove() { return true }
 })
 
 </script>
@@ -34,11 +41,16 @@ defineEmits({
     <div class="chapter-row">
         <div class="chapter-label">{{ props.chapterNum }}</div>
         <div class="form-chapter">
-            <label>Chapter Title<input type="text" v-model="model.chapterTitle" @change="$emit('formChanged',simplifyModel(model))"/></label>
-            <label>Group Name<input type="text" v-model="model.groupName" @change="$emit('formChanged',simplifyModel(model))"/></label>
-            <label>Imgur Link<input type="text" v-model="model.imgurLink" @change="$emit('formChanged',simplifyModel(model))"/></label>
-            <label>Timestamp<input type="text" v-model="model.timestamp" :disabled="props.lockedTime" @change="$emit('formChanged',simplifyModel(model))"/></label>
+            <label>Chapter Title<input type="text" v-model="model.chapterTitle"
+                    @change="$emit('formChanged', simplifyModel(model, groupSets))" /></label>
+            <div v-for="g in groupSets" :key="g.id">
+                <label>Group Name<input type="text" v-model="g.groupName"
+                        @change="$emit('formChanged', simplifyModel(model, groupSets))" /></label>
+                <label>Imgur Link<input type="text" v-model="g.imgur"
+                        @change="$emit('formChanged', simplifyModel(model, groupSets))" /></label>
+            </div>
+            <label>Timestamp<input type="text" v-model="model.timestamp" :disabled="props.lockedTime"
+                    @change="$emit('formChanged',simplifyModel(model, groupSets))" /></label>
         </div>
-        <button name="Remove" @click="$emit('chapterRemove', props.refId)" :disabled="props.total<=1">X</button>
-    </div>
-</template>
+    <button name="Remove" @click="$emit('chapterRemove', props.refId)" :disabled="props.total<=1">X</button>
+</div></template>
