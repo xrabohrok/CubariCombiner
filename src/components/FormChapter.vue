@@ -2,6 +2,8 @@
 import { ref } from 'vue';
 import { v4 as uuidv4 } from 'uuid'
 
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
 const props = defineProps(['chapterNum', 'lockedTime', 'refId', 'total'])
 
@@ -49,8 +51,9 @@ defineEmits({
                 <label>Imgur Link<input type="text" v-model="g.imgur"
                         @change="$emit('formChanged', simplifyModel(model, groupSets))" /></label>
             </div>
-            <label>Timestamp<input type="text" v-model="model.timestamp" :disabled="props.lockedTime"
-                    @change="$emit('formChanged',simplifyModel(model, groupSets))" /></label>
+            <label>Timestamp<VueDatePicker v-model="model.timestamp" :disabled="props.lockedTime" 
+                @update:model-value="$emit('formChanged', simplifyModel(model, groupSets))" auto-apply /></label>
         </div>
-    <button name="Remove" @click="$emit('chapterRemove', props.refId)" :disabled="props.total<=1">X</button>
-</div></template>
+        <button name="Remove" @click="$emit('chapterRemove', props.refId)" :disabled="props.total<=1">X</button>
+    </div>
+</template>

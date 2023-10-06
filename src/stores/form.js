@@ -7,7 +7,8 @@ export const useFormStore = defineStore('form-meta', {
     artist: "",
     description: "",
     cover: "",
-    useCurTime: false,
+    useGlobalTime: false,
+    globalTimestamp: new Date(),
     chapters: []
   }),
   getters: {

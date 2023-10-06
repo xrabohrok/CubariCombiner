@@ -1,10 +1,16 @@
 <script setup>
 import { storeToRefs } from "pinia";
+import { ref } from 'vue';
 import FormChapter from "../components/FormChapter.vue"
 
 import {useFormStore} from '../stores/form'
 
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+
 import {v4 as uuidv4} from 'uuid'
+
+import { serializeFormChapters } from "../scripts/serializer";
 
 const store = useFormStore()
 
@@ -19,6 +25,8 @@ function addChapter(){
       })
   })
 }
+
+const jsonOutput = ref("")
 
 function removeChapter(id){
   console.log(`removing ${id}`)
@@ -48,7 +56,11 @@ function catchChapterChange(thing){
   updateChapter(thing)
 }
 
-const {title, author, artist, description, cover, useCurTime} = storeToRefs(store)
+function serialize(){
+  jsonOutput.value = serializeFormChapters(store)
+}
+
+const {title, author, artist, description, cover, useGlobalTime, globalTimestamp} = storeToRefs(store)
 
 //seed with one
 addChapter()
@@ -73,7 +85,10 @@ addChapter()
       <input type="text" name="cover" v-model="cover"/>
     </label>
     <label>Use Current Time For all Chapters
-      <input type="checkbox" name="cur-time-all" v-model="useCurTime" />
+      <input type="checkbox" name="cur-time-all" v-model="useGlobalTime" />
+    </label>
+    <label>Time Override
+      <VueDatePicker :disabled="!useGlobalTime" v-model="globalTimestamp"></VueDatePicker>
     </label>
   </form>
   <button @click="addChapter">Add Chapter</button>
@@ -86,10 +101,11 @@ addChapter()
     :key="i.refId"
     :total="store.chapters.length"
     :refId="i.refId"
-    :locked-time="store.useCurTime">
+    :locked-time="store.useGlobalTime">
   </FormChapter>
 
-  <button>GO!</button>
+  <button @click="serialize">GO!</button>
+  <textarea readonly v-model="jsonOutput" cols="30" rows="50"></textarea>
 
 </template>
 
