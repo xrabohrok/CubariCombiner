@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
+import '../assets/chapter.less'
 
 const props = defineProps(['chapterNum', 'lockedTime', 'refId', 'total'])
 

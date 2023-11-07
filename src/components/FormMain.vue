@@ -68,28 +68,28 @@ addChapter()
 </script>
 
 <template>
-  <form>
-    <label>Comic Title
+  <form class="main-form">
+    <label>Comic Title </label>
       <input type="text" name="title" v-model="title" />
-    </label>
-    <label>Author
+
+    <label>Author </label>
       <input type="text" name="author" v-model="author" />
-    </label>
-    <label>Artist
+
+    <label>Artist </label>
       <input type="text" name="artist" v-model="artist"/>
-    </label>
-    <label>Description
+   
+    <label>Description </label>
       <textarea name="description" v-model="description"></textarea>
-    </label>
-    <label>Cover
+    
+    <label>Cover </label>
       <input type="text" name="cover" v-model="cover"/>
-    </label>
-    <label>Use Current Time For all Chapters
-      <input type="checkbox" name="cur-time-all" v-model="useGlobalTime" />
-    </label>
-    <label>Time Override
+    
+    <label>Time Override </label>
       <VueDatePicker :disabled="!useGlobalTime" v-model="globalTimestamp"></VueDatePicker>
-    </label>
+    
+    <label>Use Current Time For all Chapters </label>
+      <input type="checkbox" name="cur-time-all" v-model="useGlobalTime" />
+
   </form>
   <button @click="addChapter">Add Chapter</button>
 
