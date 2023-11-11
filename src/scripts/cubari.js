@@ -1,5 +1,5 @@
 const GalleryIdTest = /^(\w){7}$/i
-const validLinkTest = /^(https:\/\/)?imgur\.com\/(a|gallery)\/.......$/i
+const validLinkTest = /^(https:\/\/)?(www\.)?imgur\.com\/(a|gallery)\/.......$/i
 const idPart = /(a|gallery)\/.......$/
 
 function isFullLink(input){
