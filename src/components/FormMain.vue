@@ -7,6 +7,7 @@ import {useFormStore} from '../stores/form'
 
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
+import "../assets/form.less"
 
 import {v4 as uuidv4} from 'uuid'
 
@@ -81,7 +82,7 @@ addChapter()
     <label>Description </label>
       <textarea name="description" v-model="description"></textarea>
     
-    <label>Cover </label>
+    <label>Cover Image Hyperlink</label>
       <input type="text" name="cover" v-model="cover"/>
     
     <label>Time Override </label>

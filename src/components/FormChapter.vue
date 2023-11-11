@@ -44,16 +44,17 @@ defineEmits({
     <div class="chapter-row">
         <div class="chapter-label">{{ props.chapterNum }}</div>
         <div class="form-chapter">
-            <label>Chapter Title<input type="text" v-model="model.chapterTitle"
-                    @change="$emit('formChanged', simplifyModel(model, groupSets))" /></label>
-            <div v-for="g in groupSets" :key="g.id">
-                <label>Group Name<input type="text" v-model="g.groupName"
-                        @change="$emit('formChanged', simplifyModel(model, groupSets))" /></label>
-                <label>Imgur Link<input type="text" v-model="g.imgur"
-                        @change="$emit('formChanged', simplifyModel(model, groupSets))" /></label>
+            <label>Chapter Title</label><input type="text" v-model="model.chapterTitle"
+                    @change="$emit('formChanged', simplifyModel(model, groupSets))" />
+            <div class="groups" v-for="g in groupSets" :key="g.id">
+                <label>Group Name</label><input type="text" v-model="g.groupName"
+                        @change="$emit('formChanged', simplifyModel(model, groupSets))" />
+                <label>Imgur Link</label><input type="text" v-model="g.imgur"
+                        @change="$emit('formChanged', simplifyModel(model, groupSets))" />
             </div>
-            <label>Timestamp<VueDatePicker v-model="model.timestamp" :disabled="props.lockedTime" 
-                @update:model-value="$emit('formChanged', simplifyModel(model, groupSets))" auto-apply /></label>
+            <div class="imgur-preview"></div>
+            <label class="timestamp">Timestamp</label><VueDatePicker v-model="model.timestamp" :disabled="props.lockedTime" 
+                @update:model-value="$emit('formChanged', simplifyModel(model, groupSets))" auto-apply />
         </div>
         <button name="Remove" @click="$emit('chapterRemove', props.refId)" :disabled="props.total<=1">X</button>
     </div>

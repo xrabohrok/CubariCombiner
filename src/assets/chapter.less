@@ -1,7 +1,39 @@
+
+@row-gaps-size: .3em;
+@tab-size: 2em;
+
 .form-chapter{
 
     color: red;
     display: grid;
-    grid-template-columns: 2fr 5fr;
+    grid-template-columns: 1fr 5fr 2fr;
+    row-gap: @row-gaps-size;
+
+    label.timestamp{
+        &::before{
+            content: "";
+            padding-left: @tab-size;
+        }
+    }
+
+    .groups{
+        display: grid;
+        grid-template-columns: 1fr 4fr;
+        grid-column-start: 1;
+        grid-column-end:3;
+        row-gap: @row-gaps-size;
+
+        label{
+            &::before{
+                content: "";
+                padding-left: @tab-size;
+            }
+        }
+    }
+
+    .imgur-preview{
+        background-color: green;
+        height: 20em;
+    }
 
 }
