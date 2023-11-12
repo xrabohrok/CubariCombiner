@@ -29,11 +29,30 @@
                 padding-left: @tab-size;
             }
         }
+        input[type="text"]{
+            height: 2em;
+        }
+    }
+
+    .group-add-button{
+        width: 30%;
+        margin-left: auto;
+        margin-right: auto;
+
+        grid-column-start: 1;
+        grid-column-end: 4;
+    }
+
+    .group-label{
+        grid-column-end: 3;
     }
 
     .imgur-preview{
         background-color: green;
         height: 20em;
+        grid-row-start: 1;
+        grid-row-end: 4;
+        grid-column-start: 3;
     }
 
 }
