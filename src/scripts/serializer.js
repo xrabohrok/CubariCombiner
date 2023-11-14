@@ -1,3 +1,5 @@
+import {extractIdFromLink} from "./cubari"
+
 function doSerialization(obj){
     return JSON.stringify(obj, null, 2)
 }
@@ -10,8 +12,9 @@ function serializeFormChapters(store){
     const chapterObj = {}
     store.chapters.forEach((c,i) =>{
         const groups = {}
+        //Assuming the links are in the right form
         c.chapterGroups.forEach(cg => {
-            groups[cg.groupName] = cg.imgurLink
+            groups[cg.groupName] = extractIdFromLink(cg.imgurLink)
         })
         chapterObj[i+1] = {
             title: c.chapterTitle,
