@@ -65,8 +65,8 @@ defineEmits({
 <template>
     <div class="chapter-row">
         <div class="chapter-label">
-            <button name="Remove" @click="$emit('chapterRemove', props.refId)" :disabled="props.total<=1">X</button> 
-            {{ props.chapterNum }}
+            <button class="remove" name="Remove" @click="$emit('chapterRemove', props.refId)" :disabled="props.total<=1">X</button> 
+            Chapter: {{ props.chapterNum }}
         </div>
         <div class="form-chapter">
             <label>Chapter Title</label>
@@ -77,10 +77,10 @@ defineEmits({
                 @update:model-value="$emit('formChanged', simplifyModel(model, groupSets))" auto-apply />
             <div class="groups" v-for="(g, i) in groupSets" :key="g.id">
                 <div class="group-label">
-                    <button name="GroupRemove" @click="deleteGroup(g.id)" :disabled="!allowGroupDelete(groupSets)">X</button> 
-                    {{ i+1 }}
+                    <button class="remove" name="GroupRemove" @click="deleteGroup(g.id)" :disabled="!allowGroupDelete(groupSets)">X</button> 
+                    Groups: {{ i + 1 }}
                 </div>
-                <label> Group Name</label><input type="text" v-model="g.groupName"
+                <label>Group Name</label><input type="text" v-model="g.groupName"
                         @change="$emit('formChanged', simplifyModel(model, groupSets))" />
                 <label>Imgur Link</label><input type="text" v-model="g.imgur"
                         @change="$emit('formChanged', simplifyModel(model, groupSets))" />

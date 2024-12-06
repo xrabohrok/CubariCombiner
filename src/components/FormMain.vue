@@ -92,7 +92,7 @@ addChapter()
       <input type="checkbox" name="cur-time-all" v-model="useGlobalTime" />
 
   </form>
-  <button @click="addChapter">Add Chapter</button>
+  <button class="new-chapter" @click="addChapter">Add Chapter</button>
 
   <FormChapter 
     :chapter-num="index+1" 
@@ -105,7 +105,7 @@ addChapter()
     :locked-time="store.useGlobalTime">
   </FormChapter>
 
-  <button @click="serialize">GO!</button>
+  <button class="generate" @click="serialize">GO!</button>
   <textarea readonly v-model="jsonOutput" cols="30" rows="30" placeholder="output appears here"></textarea>
 
 </template>
