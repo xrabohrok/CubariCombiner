@@ -1,50 +1,50 @@
-
+@import './cs16.less';
 @row-gaps-size: .3em;
 @tab-size: 2em;
+
 
 .chapter-row{
     margin-top: .7em;
 
     .chapter-label{
-        font-size: 2em;
+        font-size: @label-size;
         margin-bottom: .3em;
         margin-left: .4em;
     }
 
 }
 
-button.new-chapter{
-    font-size: 2em;
-    color: red;
-    border: solid 1px red;
-    background-color: black;
+button{
+    .cs-btn;
+
+    &.generate{
+            font-size: @label-size;
+        //     color: rgb(91, 116, 226);
+        //     border: solid 1px rgb(91, 116, 226);
+        //     background-color: black;
+        
+            width: 20%;
+            margin: .3em auto;
+        }
+
+        &.generate{
+            width: 20%;
+            margin: .3em auto;
+        }
 }
 
-button.generate{
-    font-size: 1.5em;
-    color: rgb(91, 116, 226);
-    border: solid 1px rgb(91, 116, 226);
-    background-color: black;
 
-    width: 20%;
-    margin: .3em auto;
-}
 
 .form-chapter{
 
-    color: red;
-    display: grid;
+//     color: red;
+//     display: grid;
     grid-template-columns: 1fr 5fr 2fr;
     row-gap: @row-gaps-size;
 
-    // label.timestamp{
-    //     &::before{
-    //         content: "";
-    //         padding-left: @tab-size;
-    //     }
-    // }
 
     input[type="text"], div.dp__main{
+        .cs-input;
         height: 2em;
         margin-right: .2em;
     }
@@ -56,15 +56,6 @@ button.generate{
         grid-column-end:3;
         row-gap: @row-gaps-size;
         min-width: 4em;
-
-        // label{
-            // &::before{
-            //     content: "";
-            //     padding-left: @tab-size;
-            // }
-        // }
-
-
     }
 
     .group-add-button{
@@ -76,10 +67,10 @@ button.generate{
         grid-column-start: 1;
         grid-column-end: 4;
 
-        font-size: 1.5em;
-        color: red;
-        border: solid 1px red;
-        background-color: black;
+        font-size: @label-size;
+        // color: red;
+        // border: solid 1px red;
+        // background-color: black;
     }
 
     .group-label{
@@ -89,11 +80,11 @@ button.generate{
             margin-right: .2em;
         }
 
-        font-size: 1.5em;
+        // font-size: 1.5em;
     }
 
     .imgur-preview{
-        background-color: green;
+        // background-color: green;
         height: 20em;
         grid-row-start: 1;
         grid-row-end: 4;
