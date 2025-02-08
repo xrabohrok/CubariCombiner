@@ -85,11 +85,11 @@ addChapter()
     <label>Cover Image Hyperlink</label>
       <input type="text" name="cover" v-model="cover"/>
     
-    <label>Time Override </label>
-      <VueDatePicker :disabled="!useGlobalTime" v-model="globalTimestamp"></VueDatePicker>
-    
-    <label>Use Current Time For all Chapters </label>
+    <label>Use Same Time For all Chapters </label>
       <input type="checkbox" name="cur-time-all" v-model="useGlobalTime" />
+
+    <label :disabled="!useGlobalTime">Time Override </label>
+      <VueDatePicker :disabled="!useGlobalTime" v-model="globalTimestamp"></VueDatePicker>
 
   </form>
   <button class="new-chapter" @click="addChapter">Add Chapter</button>
