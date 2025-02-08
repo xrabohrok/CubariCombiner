@@ -19,6 +19,7 @@ function isValidLink(input){
 }
 
 function extractIdFromLink(input){
+    if(isGalleryId) return input.trim()
     if(!isFullLink(input)) return ""
     // var matches = idPart.match(input.trim())
     var matches = input.trim().match(idPart)

@@ -5,16 +5,15 @@ function doSerialization(obj){
 }
 
 function cubariTicks(indate){
-    return Math.floor(indate.getTime()/100)
+    return Math.floor(indate.getTime()/1000)
 }
 
 function serializeFormChapters(store){
     const chapterObj = {}
     store.chapters.forEach((c,i) =>{
         const groups = {}
-        //Assuming the links are in the right form
         c.chapterGroups.forEach(cg => {
-            groups[cg.groupName] = extractIdFromLink(cg.imgurLink)
+            groups[cg.groupName] = `/proxy/api/imgur/chapter/${extractIdFromLink(cg.imgurLink)}`
         })
         chapterObj[i+1] = {
             title: c.chapterTitle,
@@ -28,6 +27,7 @@ function serializeFormChapters(store){
     const rawObj = {
         title: store.title,
         author: store.author,
+        artist: store.artist,
         cover: store.cover,
         description: store.description,
         chapters: chapterObj

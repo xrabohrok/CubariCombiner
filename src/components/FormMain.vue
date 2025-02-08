@@ -12,8 +12,17 @@ import "../assets/form.less"
 import {v4 as uuidv4} from 'uuid'
 
 import { serializeFormChapters } from "../scripts/serializer";
+import { useTemplateRef } from "vue";
 
 const store = useFormStore()
+const modelState = ref({
+  hasTitleError: false,
+  hasAuthorError: false,
+  hasArtistError: false,
+})
+
+const chapterRefs = useTemplateRef('chapters')
+
 
 function addChapter(){
   store.$patch(()=>{
@@ -57,8 +66,30 @@ function catchChapterChange(thing){
   updateChapter(thing)
 }
 
+function verifyForm(){
+    modelState.value.hasTitleError = title.value === null || title.value === ''
+    modelState.value.hasArtistError = artist.value === null || artist.value === ''
+    modelState.value.hasAuthorError = author.value === null || author.value === ''
+
+  const formErrors = modelState.value.hasTitleError || modelState.value.hasAuthorError ||
+    modelState.value.hasArtistError;
+    // console.log(`is errored: ${isErrored}`)
+    // console.log(`hasTitleError: ${modelState.value.hasTitleError}, value: ${modelState.value.hasTitleError}, title: ${title.value}`)
+
+    var chapterErrors = chapterRefs.value
+      .map(c => c.validate()).reduce((a,b) => a || b, false);
+
+    return formErrors || chapterErrors
+}
+
 function serialize(){
-  jsonOutput.value = serializeFormChapters(store)
+  if(verifyForm())
+  {
+    jsonOutput.value = "Required fields are missing, check above for highlighted boxes. "
+  }else{
+    
+    jsonOutput.value = serializeFormChapters(store)
+  }
 }
 
 const {title, author, artist, description, cover, useGlobalTime, globalTimestamp} = storeToRefs(store)
@@ -71,13 +102,13 @@ addChapter()
 <template>
   <form class="main-form">
     <label>Comic Title </label>
-      <input type="text" name="title" v-model="title" />
+      <input type="text" name="title" v-model="title" :class="{invalid: modelState.hasTitleError}" />
 
     <label>Author </label>
-      <input type="text" name="author" v-model="author" />
+      <input type="text" name="author" v-model="author" :class="{invalid: modelState.hasAuthorError}"/>
 
     <label>Artist </label>
-      <input type="text" name="artist" v-model="artist"/>
+      <input type="text" name="artist" v-model="artist" :class="{invalid: modelState.hasArtistError}"/>
    
     <label>Description </label>
       <textarea name="description" v-model="description"></textarea>
@@ -102,7 +133,8 @@ addChapter()
     :key="i.refId"
     :total="store.chapters.length"
     :refId="i.refId"
-    :locked-time="store.useGlobalTime">
+    :locked-time="store.useGlobalTime"
+    ref="chapters">
   </FormChapter>
 
   <button class="generate" @click="serialize">GO!</button>
